@@ -1,7 +1,7 @@
 # ERP_TRILOGISTICA
 
 - Clonar este repositorio
-- Crear un usuario en postgres
+- Crear un usuario en postgres.
 - Crear una venv
  ```bash
    python -m venv mienviroment
