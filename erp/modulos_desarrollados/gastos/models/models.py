@@ -7,7 +7,7 @@ class gasto(models.Model):
       _name = 'gastos.gasto'
 #     _description = 'gastos.gastos'
       name = fields.Char(string="Descripcion")
-      value = fields.Integer(string="Valor")
+      value = fields.Float(string="Valor")
       expense_date = fields.Date(string="Fecha de Gasto")
       status = fields.Selection(
         selection=[

@@ -19,7 +19,7 @@
             decoration-success="status in ['pagado']"
             decoration-danger="status == 'no_pagado'" 
             widget="badge"/>
-          <field name="value" string="Total"  widget="monetary" sum="Total General"/>
+          <field name="value" string="Total" sum="1" />
           
         </list>
       </field>
