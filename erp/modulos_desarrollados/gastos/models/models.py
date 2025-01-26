@@ -9,7 +9,16 @@ class gasto(models.Model):
       name = fields.Char(string="Descripcion")
       value = fields.Integer(string="Valor")
       expense_date = fields.Date(string="Fecha de Gasto")
-
+      status = fields.Selection(
+        selection=[
+            ('pagado', 'Pagado'),
+            ('en_proceso', 'En Proceso'),
+            ('no_pagado', 'No Pagado'),
+        ],
+        string='Estado de Pago',
+        default='no_pagado',  # Valor predeterminado
+      )
+      
       @api.model
       def create_gasto(self):
         for record in self:

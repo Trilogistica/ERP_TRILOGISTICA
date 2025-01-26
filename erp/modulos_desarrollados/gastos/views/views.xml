@@ -8,17 +8,25 @@
       <field name="model">gastos.gasto</field>
       <field name="arch" type="xml">
         <list>
+          
           <field name="create_date" string="Creado en"/>
           <field name="name"/>
           <field name="expense_date" string="Expiracion"/>
-          <field name="value" string="Total"  widget="monetary"/>
+          <field  name="status" 
+            optional="show" 
+            readonly="True" 
+            decoration-warning="status in ['en_proceso']" 
+            decoration-success="status in ['pagado']"
+            decoration-danger="status == 'no_pagado'" 
+            widget="badge"/>
+          <field name="value" string="Total"  widget="monetary" sum="Total General"/>
           
         </list>
       </field>
     </record>
 
     <!-- explicit form view definition -->
-    <record model="ir.ui.view" id="gastos.gasto_form">
+  <record model="ir.ui.view" id="gastos.gasto_form">
   <field name="name">Formulario de Gasto</field>
   <field name="model">gastos.gasto</field>
   <field name="arch" type="xml">
@@ -31,6 +39,7 @@
               <field name="name" placeholder="Describa el gasto"/>
             </h1>
           </div>
+          
           <!-- Aquí colocamos los campos juntos en un grupo -->
           <group>
             <field name="create_date" widget="date" />
@@ -39,6 +48,7 @@
         </group>
         <group>
           <field name="expense_date" widget="date" string="Fecha de Expiracion"/>
+            <field name="status"/>
         </group>
       </sheet>
     </form>
@@ -46,11 +56,24 @@
 </record>
 
 
+
+    <!-- <record model="ir.ui.view" id="gastos.gasto_search">
+        <field name="name">Busqueda de Gastos</field>
+        <field name="model">gastos.gasto</field>
+        <field name="arch" type="xml">
+            <search string="Búsqueda de Gastos">
+                <filter name="to_submit" string="Para Enviar" domain="[('name', '=', 'to_submit')]"/>
+            </search>
+        </field>
+    </record> -->
+
+
     <!-- actions opening views on models -->
     <record model="ir.actions.act_window" id="gastos.action_gasto_window">
       <field name="name">Mis Gastos</field>
       <field name="res_model">gastos.gasto</field>
-      <field name="view_mode">list,form</field>
+      <field name="view_mode">list,kanban,form</field>
+      <!-- <field name="search_view_id" ref="gastos.gasto_search"/> -->
       <field name="view_id" ref="gastos.gasto_list"/>
     </record>
 
