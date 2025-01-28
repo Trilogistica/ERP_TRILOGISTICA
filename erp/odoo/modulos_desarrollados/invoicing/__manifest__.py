@@ -10,7 +10,7 @@
     'depends': ['account'],
     'data': [
         'security/ir.model.access.csv',
-        'views/views.xml',
+        'views/invoice_views.xml',
     ],
     'installable': True,
     'auto_install': False,

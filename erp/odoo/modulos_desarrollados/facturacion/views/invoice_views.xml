@@ -1,35 +1,60 @@
 <odoo>
-    <record id="view_invoice_form" model="ir.ui.view">
-        <field name="name">custom.invoice.form</field>
-        <field name="model">custom.invoice</field>
-        <field name="arch" type="xml">
-            <form string="Factura">
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="date_invoice"/>
-                        <field name="amount_total"/>
-                        <field name="partner_id"/>
-                    </group>
-                </sheet>
-            </form>
-        </field>
-    </record>
+    <data>
+        <!-- Vista de lista (tree) -->
+        <record model="ir.ui.view" id="view_factura_list">
+            <field name="name">factura.list</field>
+            <field name="model">custom.invoice</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Facturas">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="date_invoice"/>
+                    <field name="amount_total" sum="Total"/>
+                </tree>
+            </field>
+        </record>
 
-    <record id="view_invoice_tree" model="ir.ui.view">
-        <field name="name">custom.invoice.tree</field>
-        <field name="model">custom.invoice</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="date_invoice"/>
-                <field name="amount_total"/>
-                <field name="partner_id"/>
-            </tree>
-        </field>
-    </record>
+        <!-- Vista de formulario -->
+        <record model="ir.ui.view" id="view_factura_form">
+            <field name="name">factura.form</field>
+            <field name="model">custom.invoice</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Factura">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="date_invoice"/>
+                                <field name="amount_total"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
-    <menuitem id="menu_custom_invoice" name="Facturas Personalizadas" parent="account.menu_account" sequence="10"/>
-    <menuitem id="submenu_custom_invoice" name="Facturas" parent="menu_custom_invoice" action="action_custom_invoice"/>
+        <!-- Acción de ventana -->
+        <record model="ir.actions.act_window" id="action_factura">
+            <field name="name">Facturas</field>
+            <field name="res_model">custom.invoice</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menú principal -->
+        <menuitem name="Facturación" 
+                  id="menu_facturacion_root"
+                  sequence="10"/>
+
+        <!-- Submenú -->
+        <menuitem name="Facturas" 
+                  id="menu_factura" 
+                  parent="menu_facturacion_root"
+                  action="action_factura"
+                  sequence="1"/>
+    </data>
 </odoo>
-

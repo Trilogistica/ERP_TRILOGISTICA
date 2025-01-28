@@ -8,3 +8,4 @@ class CustomInvoice(models.Model):
     date_invoice = fields.Date(string='Fecha de Factura', required=True)
     amount_total = fields.Float(string='Total', required=True)
     partner_id = fields.Many2one('res.partner', string='Cliente', required=True)
+
