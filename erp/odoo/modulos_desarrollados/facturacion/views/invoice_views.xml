@@ -1,60 +1,51 @@
 <odoo>
-    <data>
-        <!-- Vista de lista (tree) -->
-        <record model="ir.ui.view" id="view_factura_list">
-            <field name="name">factura.list</field>
-            <field name="model">custom.invoice</field>
-            <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <tree string="Facturas">
-                    <field name="name"/>
-                    <field name="partner_id"/>
-                    <field name="date_invoice"/>
-                    <field name="amount_total" sum="Total"/>
-                </tree>
-            </field>
-        </record>
+  <data>
+    <!-- List view definition -->
+    <record id="facturacion_list_view" model="ir.ui.view">
+      <field name="name">facturacion.list</field>
+      <field name="model">facturacion.invoice</field>
+      <field name="arch" type="xml">
+        <list string="Lista de Facturación">
+          <field name="name" string="Nombre de Facturación"/>
+          <field name="invoice_date" string="Fecha de Facturación"/>
+          <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="status" string="Estado" decoration-success="status == 'pagado'" decoration-danger="status == 'pendiente'" widget="badge"/>
+        </list>
+      </field>
+    </record>
 
-        <!-- Vista de formulario -->
-        <record model="ir.ui.view" id="view_factura_form">
-            <field name="name">factura.form</field>
-            <field name="model">custom.invoice</field>
-            <field name="type">form</field>
-            <field name="arch" type="xml">
-                <form string="Factura">
-                    <sheet>
-                        <group>
-                            <group>
-                                <field name="name"/>
-                                <field name="partner_id"/>
-                            </group>
-                            <group>
-                                <field name="date_invoice"/>
-                                <field name="amount_total"/>
-                            </group>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
+    <!-- Form view definition -->
+    <record id="facturacion_form_view" model="ir.ui.view">
+      <field name="name">facturacion.form</field>
+      <field name="model">facturacion.invoice</field>
+      <field name="arch" type="xml">
+        <form string="Formulario de Facturación">
+          <sheet>
+            <group>
+              <field name="name" string="Nombre de Facturación" required="1"/>
+              <field name="invoice_date" string="Fecha de Facturación" widget="date"/>
+              <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}" required="1"/>
+              <field name="status" string="Estado"/>
+            </group>
+            <group>
+              <field name="description" string="Descripción" widget="text"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
-        <!-- Acción de ventana -->
-        <record model="ir.actions.act_window" id="action_factura">
-            <field name="name">Facturas</field>
-            <field name="res_model">custom.invoice</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+    <!-- Action to open the views -->
+    <record id="action_facturacion" model="ir.actions.act_window">
+      <field name="name">Facturación</field>
+      <field name="res_model">facturacion.invoice</field>
+      <field name="view_mode">list,form</field>
+      <field name="view_id" ref="facturacion_list_view"/>
+    </record>
 
-        <!-- Menú principal -->
-        <menuitem name="Facturación" 
-                  id="menu_facturacion_root"
-                  sequence="10"/>
-
-        <!-- Submenú -->
-        <menuitem name="Facturas" 
-                  id="menu_factura" 
-                  parent="menu_facturacion_root"
-                  action="action_factura"
-                  sequence="1"/>
-    </data>
+    <!-- Menu item -->
+    <menuitem name="Facturación" id="menu_facturacion_root"/>
+    <menuitem name="Gestión de Facturación" id="menu_facturacion" parent="menu_facturacion_root" action="action_facturacion"/>
+  </data>
 </odoo>
+
