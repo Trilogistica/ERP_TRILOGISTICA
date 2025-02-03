@@ -3,13 +3,23 @@
 from odoo import models, fields, api
 
 
-class gasto(models.Model):
-      _name = 'gastos.gasto'
-#     _description = 'gastos.gastos'
-      name = fields.Char(string="Descripcion")
-      value = fields.Float(string="Valor")
-      expense_date = fields.Date(string="Fecha de Gasto")
-      status = fields.Selection(
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api
+
+
+class Gasto(models.Model):
+    _name = 'gastos.gasto'
+    # _description = 'gastos.gastos'
+    expense_date = fields.Date(string="FECHA")
+    supplier = fields.Char(string="PROVEEDOR")
+    number = fields.Char(string="NUMERO")
+    value = fields.Float(string="VALOR Q")
+    no_retencion_isr = fields.Char(string="NUMERO RETENCION ISR")
+    isr = fields.Float(string="VALOR ISR")
+    constancia = fields.Char(string="CONSTANCIA")
+    
+    status = fields.Selection(
         selection=[
             ('pagado', 'Pagado'),
             ('en_proceso', 'En Proceso'),
@@ -17,21 +27,24 @@ class gasto(models.Model):
         ],
         string='Estado de Pago',
         default='no_pagado',  # Valor predeterminado
-      )
-      
-      @api.model
-      def create_gasto(self):
-        for record in self:
-            self.create({'name': 'Nuevo Gasto', 'value': 0.0})
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'reload',
-            }
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    )
+
+    @api.model
+    def create_gasto(self, expense_date, supplier, number, value, no_retencion_isr, isr, constancia, status='no_pagado'):
+        # Crear un nuevo gasto
+        record = self.create({
+            'expense_date': expense_date,
+            'supplier': supplier,
+            'number': number,
+            'value': value,
+            'no_retencion_isr': no_retencion_isr,
+            'isr': isr,
+            'constancia': constancia,
+            'status': status,
+        })
+        
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
 

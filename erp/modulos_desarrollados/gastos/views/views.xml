@@ -5,7 +5,7 @@
         <field name="model">gastos.gasto</field>
         <field name="arch" type="xml">
           <graph string="Gastos">
-             <field name="name" string="Nombre del gasto"/>
+             <field name="supplier" string="Proveedor"/>
              <field name="value" string="Valor"/>
           </graph>
         </field>
@@ -21,7 +21,7 @@
         <list>
           
           <field name="create_date" string="Creado en"/>
-          <field name="name"/>
+          <field name="supplier"/>
           <field name="expense_date" string="Expiracion"/>
           <field  name="status" 
             optional="show" 
