@@ -5,7 +5,7 @@
       <field name="model">gastos.gasto</field>
       <field name="arch" type="xml">
         <list>
-         <field name="expense_date" string="Fecha de Gasto"/>
+         <field name="expense_date" string="Fecha de Gasto"  widget="date" options="{'format': 'dd/MM/yy'}"/>
           <field name="supplier" string="Proveedor"/>
           <field name="number" string="Número"/>
           <field name="value" string="Valor en Q" sum="1" />
