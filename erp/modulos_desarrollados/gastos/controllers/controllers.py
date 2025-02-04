@@ -1,22 +1,21 @@
-# -*- coding: utf-8 -*-
-# from odoo import http
+from odoo import http
+from odoo.http import request
+from odoo.http import Response
+import json
 
-
-# class Gastos(http.Controller):
-#     @http.route('/gastos/gastos', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
-
-#     @http.route('/gastos/gastos/objects', auth='public')
-#     def list(self, **kw):
-#         return http.request.render('gastos.listing', {
-#             'root': '/gastos/gastos',
-#             'objects': http.request.env['gastos.gastos'].search([]),
-#         })
-
-#     @http.route('/gastos/gastos/objects/<model("gastos.gastos"):obj>', auth='public')
-#     def object(self, obj, **kw):
-#         return http.request.render('gastos.object', {
-#             'object': obj
-#         })
+class GastoController(http.Controller):
+    @http.route('/gastos/suma_total', auth='public', type='http')
+    def suma_total_gastos(self, **kw):
+        # Obtener todos los gastos con estado 'pagado'
+        total = request.env['gastos.gasto'].search([('status', '=', 'pagado')]).mapped('value')
+        total_isr =  request.env['gastos.gasto'].search([('status', '=', 'pagado')]).mapped('isr')
+        # Sumar todos los valores de los gastos
+        suma_total = sum(total)
+        suma_isr = sum(total_isr)
+        
+        # Crear la respuesta JSON
+        return Response(
+            json.dumps({'suma_total': suma_total, 'suma_isr': suma_isr}),
+            content_type='application/json',
+        )
 

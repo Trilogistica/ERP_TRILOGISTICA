@@ -1,0 +1,15 @@
+.o_kanban_record_large {
+  width: 300px;  /* Aumenta el ancho */
+  height: 200px;  /* Aumenta la altura */
+  padding: 20px;
+  font-size: 18px;  /* Aumenta el tamaño de la fuente */
+  border: 1px solid #ccc; /* Opcional, agrega un borde */
+  border-radius: 10px; /* Bordes redondeados */
+  background-color: #f9f9f9;  /* Fondo gris claro */
+}
+
+.o_kanban_record_large span {
+  display: block;
+  font-size: 40px;
+  margin-top: 10px;
+}

@@ -6,6 +6,7 @@
       <field name="name">Contabilidad</field>
       <field name="res_model">contabilidad.contabilidad</field>
       <field name="view_mode">kanban</field>
+     
     </record>
 
     <!-- Menú principal -->
@@ -15,27 +16,57 @@
     <menuitem name="Panel de Control" id="contabilidad.menu_dashboard"
       parent="contabilidad.menu_root" action="contabilidad.action_dashboard_window"/>
 
-    <!-- Nueva acción para Facturas -->
-    <record model="ir.actions.act_window" id="contabilidad.action_invoice_window">
-      <field name="name">Facturas</field>
+    <!-- Vista de dashboard con la información de totales -->
+     <record id="view_dashboard_totales_kanban" model="ir.ui.view">
+    <field name="name">contabilidad.dashboard.totales.kanban</field>
+    <field name="model">contabilidad.contabilidad</field>
+    <field name="arch" type="xml">
+        <kanban>
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="o_kanban_record o_kanban_record_large">
+                        <strong>Gastos</strong>
+                        <span>Total : <field name="suma_total" /></span>
+                        <span>IRS: <field name="suma_total_irs" /></span>
+                    </div>
+                </t>
+            </templates>
+            <!-- CSS inline dentro del archivo XML -->
+            <style>
+                .o_kanban_record_large {
+                    width: 300px;  /* Aumenta el ancho */
+                    height: 200px;  /* Aumenta la altura */
+                    padding: 20px;
+                    font-size: 18px;  /* Aumenta el tamaño de la fuente */
+                    border: 1px solid #ccc; /* Opcional, agrega un borde */
+                    border-radius: 10px; /* Bordes redondeados */
+                    background-color: #f9f9f9;  /* Fondo gris claro */
+                }
+
+                .o_kanban_record_large span {
+                    display: block;
+                    font-size: 40px;
+                    margin-top: 10px;
+                }
+            </style>
+        </kanban>
+    </field>
+</record>
+
+
+
+
+
+    <!-- Acción para el nuevo dashboard -->
+    <record model="ir.actions.act_window" id="contabilidad.action_dashboard_totales">
+      <field name="name">Totales de Gastos</field>
       <field name="res_model">contabilidad.contabilidad</field>
-      <field name="view_mode">list,form</field>
+      <field name="view_mode">form</field>
     </record>
 
-    <!-- Submenú: Facturas -->
-    <menuitem name="Facturas" id="contabilidad.menu_invoice"
-      parent="contabilidad.menu_root" action="contabilidad.action_invoice_window"/>
-
-    <!-- Nueva acción para Reportes -->
-    <record model="ir.actions.act_window" id="contabilidad.action_reports_window">
-      <field name="name">Reportes</field>
-      <field name="res_model">contabilidad.contabilidad</field>
-      <field name="view_mode">list,form,graph,pivot</field>
-    </record>
-
-    <!-- Submenú: Reportes -->
-    <menuitem name="Reportes" id="contabilidad.menu_reports"
-      parent="contabilidad.menu_root" action="contabilidad.action_reports_window"/>
+    <!-- Submenú: Totales de Gastos -->
+    <menuitem name="Totales de Gastos" id="contabilidad.menu_totales"
+      parent="contabilidad.menu_root" action="contabilidad.action_dashboard_totales"/>
 
   </data>
 </odoo>
