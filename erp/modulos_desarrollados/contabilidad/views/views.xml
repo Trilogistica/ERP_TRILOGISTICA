@@ -1,0 +1,19 @@
+<odoo>
+  <data>
+
+    <record model="ir.actions.act_window" id="contabilidad.action_dashboard_window">
+      <field name="name">Contabilidad</field>
+      <field name="res_model">contabilidad.contabilidad</field>
+      <field name="view_mode">list,kanban,graph,form</field>
+
+    </record>
+   <menuitem name="Contabilidad" id="contabilidad.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Contabilidad" id="contabilidad.menu_1" parent="contabilidad.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="Contabilidad" id="contabilidad.1_list" parent="contabilidad.menu_1"
+              action="contabilidad.action_dashboard_window"/>
+  </data>
+</odoo>
