@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="hoja_calculo.list">
+      <field name="name">hoja_calculo list</field>
+      <field name="model">hoja_calculo.hoja_calculo</field>
+      <field name="arch" type="xml">
+        <list>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </list>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="hoja_calculo.action_window">
+      <field name="name">hoja_calculo window</field>
+      <field name="res_model">hoja_calculo.hoja_calculo</field>
+      <field name="view_mode">list,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="hoja_calculo.action_server">
+      <field name="name">hoja_calculo server</field>
+      <field name="model_id" ref="model_hoja_calculo_hoja_calculo"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "list,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="hoja_calculo" id="hoja_calculo.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="hoja_calculo.menu_1" parent="hoja_calculo.menu_root"/>
+    <menuitem name="Menu 2" id="hoja_calculo.menu_2" parent="hoja_calculo.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="hoja_calculo.menu_1_list" parent="hoja_calculo.menu_1"
+              action="hoja_calculo.action_window"/>
+    <menuitem name="Server to list" id="hoja_calculo" parent="hoja_calculo.menu_2"
+              action="hoja_calculo.action_server"/>
+-->
+  </data>
+</odoo>
