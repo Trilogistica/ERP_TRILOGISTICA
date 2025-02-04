@@ -1,0 +1,26 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="gastos_gasto_list">
+      <field name="name">Lista de Gastos</field>
+      <field name="model">gastos.gasto</field>
+      <field name="arch" type="xml">
+        <list>
+         <field name="expense_date" string="Fecha de Gasto"/>
+          <field name="supplier" string="Proveedor"/>
+          <field name="number" string="Número"/>
+          <field name="value" string="Valor en Q" sum="1" />
+          <field name="no_retencion_isr" string="Número Retención ISR"/>
+          <field name="isr" string="Valor ISR" sum="1"/>
+          <field name="constancia" string="Constancia"/>
+          <field name="status" 
+            optional="show" 
+            readonly="True" 
+            decoration-warning="status in ['en_proceso']" 
+            decoration-success="status in ['pagado']"
+            decoration-danger="status == 'no_pagado'" 
+            widget="badge"/>
+        </list>
+      </field>
+    </record>
+  </data>
+</odoo>
