@@ -1,19 +1,41 @@
 <odoo>
   <data>
 
+    <!-- Acción principal del módulo -->
     <record model="ir.actions.act_window" id="contabilidad.action_dashboard_window">
       <field name="name">Contabilidad</field>
       <field name="res_model">contabilidad.contabilidad</field>
-      <field name="view_mode">list,kanban,graph,form</field>
-
+      <field name="view_mode">kanban</field>
     </record>
-   <menuitem name="Contabilidad" id="contabilidad.menu_root"/>
 
-    <!-- menu categories -->
-    <menuitem name="Contabilidad" id="contabilidad.menu_1" parent="contabilidad.menu_root"/>
+    <!-- Menú principal -->
+    <menuitem name="Contabilidad" id="contabilidad.menu_root"/>
 
-    <!-- actions -->
-    <menuitem name="Contabilidad" id="contabilidad.1_list" parent="contabilidad.menu_1"
-              action="contabilidad.action_dashboard_window"/>
+    <!-- Submenú: Panel de Control -->
+    <menuitem name="Panel de Control" id="contabilidad.menu_dashboard"
+      parent="contabilidad.menu_root" action="contabilidad.action_dashboard_window"/>
+
+    <!-- Nueva acción para Facturas -->
+    <record model="ir.actions.act_window" id="contabilidad.action_invoice_window">
+      <field name="name">Facturas</field>
+      <field name="res_model">contabilidad.contabilidad</field>
+      <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Submenú: Facturas -->
+    <menuitem name="Facturas" id="contabilidad.menu_invoice"
+      parent="contabilidad.menu_root" action="contabilidad.action_invoice_window"/>
+
+    <!-- Nueva acción para Reportes -->
+    <record model="ir.actions.act_window" id="contabilidad.action_reports_window">
+      <field name="name">Reportes</field>
+      <field name="res_model">contabilidad.contabilidad</field>
+      <field name="view_mode">list,form,graph,pivot</field>
+    </record>
+
+    <!-- Submenú: Reportes -->
+    <menuitem name="Reportes" id="contabilidad.menu_reports"
+      parent="contabilidad.menu_root" action="contabilidad.action_reports_window"/>
+
   </data>
 </odoo>
