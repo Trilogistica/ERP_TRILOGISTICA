@@ -28,6 +28,9 @@ class Gasto(models.Model):
         default='no_pagado',  # Valor predeterminado
     )
 
+    def print_custom_report(self):
+        return self.env.ref("template_factura.bill_template_action").report_action(self)
+
     @api.model
     def create_gasto(self, expense_date, supplier, number, value, no_retencion_isr, isr, constancia, status='no_pagado'):
         # Crear un nuevo gasto

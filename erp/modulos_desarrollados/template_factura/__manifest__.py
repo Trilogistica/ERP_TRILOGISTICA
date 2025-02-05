@@ -7,10 +7,9 @@
     'description':"Qweb Report",
     'category':'School',
     'website':'https://freeweblearns.blogspot.com',
-    'depends':['school', 'school_student'],
+    'depends':['gastos', 'contabilidad'],
     'data':[
-        'report/student_report_template.xml',
-        'report/inherit_qweb_template.xml',
+        'report/bill_template.xml',
 
     ]
 }

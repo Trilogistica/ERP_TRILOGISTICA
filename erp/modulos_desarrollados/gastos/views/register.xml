@@ -5,6 +5,9 @@
       <field name="model">gastos.gasto</field>
       <field name="arch" type="xml">
         <form string="Gasto">
+          <header>
+            <button name="print_custom_report" type="object" class="oe_highlight" string="Imprimir"/>
+          </header>
           <sheet>
             <group>
               <div class="oe_title">
