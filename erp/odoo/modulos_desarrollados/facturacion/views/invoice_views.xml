@@ -9,7 +9,7 @@
                 <field name="name" string="Nombre"/>
                 <field name="invoice_date" string="Fecha de Factura"/>
                 <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                <field name="currency_id" invisible="1"/>
+                <field name="currency_id" string="Moneda"/>
                 <field name="status" string="Estado" widget="badge" 
                        decoration-success="status == 'pagado'" 
                        decoration-danger="status == 'pendiente'" 
@@ -27,14 +27,14 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" string="Nombre"/>
+                            <field name="name" string="Nombre" placeholder="Ingrese el nombre de la factura"/>
                             <field name="invoice_date" string="Fecha de Factura"/>
                             <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-                            <field name="currency_id" invisible="1"/>
+                            <field name="currency_id" string="Moneda" options="{'no_create': True, 'no_open': True}"/>
                         </group>
                         <group>
                             <field name="status" string="Estado"/>
-                            <field name="description" string="Descripción"/>
+                            <field name="description" string="Descripción" placeholder="Ingrese una descripción..."/>
                         </group>
                     </group>
                 </sheet>
