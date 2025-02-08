@@ -5,12 +5,12 @@
       <field name="name">facturacion.list</field>
       <field name="model">facturacion.invoice</field>
       <field name="arch" type="xml">
-        <list string="Lista de Facturación">
+        <tree string="Lista de Facturación" export_format="csv">
           <field name="name" string="Nombre de Facturación"/>
           <field name="invoice_date" string="Fecha de Facturación"/>
           <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
           <field name="status" string="Estado" decoration-success="status == 'pagado'" decoration-danger="status == 'pendiente'" widget="badge"/>
-        </list>
+        </tree>
       </field>
     </record>
 
