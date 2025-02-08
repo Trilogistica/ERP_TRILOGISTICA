@@ -1,22 +1,21 @@
 from odoo import models, fields
-
 class Invoice(models.Model):
     _name = 'facturacion.invoice'
-    _description = 'Invoice'
-
-    name = fields.Char(string='Name', required=True)  # Nombre de la facturación
-    invoice_date = fields.Date(string='Invoice Date', required=True)  # Fecha de la factura
-    total_amount = fields.Monetary(string='Total Amount', required=True, currency_field='currency_id')  # Monto total
-    currency_id = fields.Many2one('res.currency', string='Currency', required=False) 
+    _description = 'Factura'
+    
+    name = fields.Char(string='Nombre', required=True)
+    invoice_date = fields.Date(string='Fecha de Factura', required=True)
+    total_amount = fields.Monetary(string='Monto Total', required=True, currency_field='currency_id')
+    currency_id = fields.Many2one('res.currency', string='Moneda', required=True,
+                                 default=lambda self: self.env.ref('base.GTQ'))
     status = fields.Selection(
         [
             ('pendiente', 'Pendiente'),
             ('pagado', 'Pagado'),
             ('cancelado', 'Cancelado'),
         ],
-        string='Status',
+        string='Estado',
         required=True,
         default='pendiente'
-    )  
-    description = fields.Text(string='Description')  # Descripción de la factura
-
+    )
+    description = fields.Text(string='Descripción')

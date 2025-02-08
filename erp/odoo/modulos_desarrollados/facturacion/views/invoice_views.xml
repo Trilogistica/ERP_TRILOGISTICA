@@ -1,51 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data>
-    <!-- List view definition -->
+    <!-- Vista de lista -->
     <record id="facturacion_list_view" model="ir.ui.view">
-      <field name="name">facturacion.list</field>
-      <field name="model">facturacion.invoice</field>
-      <field name="arch" type="xml">
-        <tree string="Lista de Facturación" export_format="csv">
-          <field name="name" string="Nombre de Facturación"/>
-          <field name="invoice_date" string="Fecha de Facturación"/>
-          <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-          <field name="status" string="Estado" decoration-success="status == 'pagado'" decoration-danger="status == 'pendiente'" widget="badge"/>
-        </tree>
-      </field>
+        <field name="name">facturacion.invoice.list</field>
+        <field name="model">facturacion.invoice</field>
+        <field name="arch" type="xml">
+            <list string="Facturas" default_order="invoice_date desc">
+                <field name="name" string="Nombre"/>
+                <field name="invoice_date" string="Fecha de Factura"/>
+                <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="status" string="Estado" widget="badge" 
+                       decoration-success="status == 'pagado'" 
+                       decoration-danger="status == 'pendiente'" 
+                       decoration-warning="status == 'cancelado'"/>
+            </list>
+        </field>
     </record>
 
-    <!-- Form view definition -->
+    <!-- Vista de formulario -->
     <record id="facturacion_form_view" model="ir.ui.view">
-      <field name="name">facturacion.form</field>
-      <field name="model">facturacion.invoice</field>
-      <field name="arch" type="xml">
-        <form string="Formulario de Facturación">
-          <sheet>
-            <group>
-              <field name="name" string="Nombre de Facturación" required="1"/>
-              <field name="invoice_date" string="Fecha de Facturación" widget="date"/>
-              <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}" required="1"/>
-              <field name="status" string="Estado"/>
-            </group>
-            <group>
-              <field name="description" string="Descripción" widget="text"/>
-            </group>
-          </sheet>
-        </form>
-      </field>
+        <field name="name">facturacion.invoice.form</field>
+        <field name="model">facturacion.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Factura">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Nombre"/>
+                            <field name="invoice_date" string="Fecha de Factura"/>
+                            <field name="total_amount" string="Monto Total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="status" string="Estado"/>
+                            <field name="description" string="Descripción"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
     </record>
 
-    <!-- Action to open the views -->
-    <record id="action_facturacion" model="ir.actions.act_window">
-      <field name="name">Facturación</field>
-      <field name="res_model">facturacion.invoice</field>
-      <field name="view_mode">list,form</field>
-      <field name="view_id" ref="facturacion_list_view"/>
+    <!-- Definición de acción -->
+    <record id="action_facturacion_invoice" model="ir.actions.act_window">
+        <field name="name">Facturas</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">facturacion.invoice</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear una nueva factura
+            </p>
+            <p>
+                Cree una nueva factura para registrar sus ventas.
+            </p>
+        </field>
     </record>
 
-    <!-- Menu item -->
-    <menuitem name="Facturación" id="menu_facturacion_root"/>
-    <menuitem name="Gestión de Facturación" id="menu_facturacion" parent="menu_facturacion_root" action="action_facturacion"/>
-  </data>
+    <!-- Elementos del menú -->
+    <menuitem id="menu_facturacion_root" 
+              name="Facturación" 
+              sequence="10"/>
+
+    <menuitem id="menu_facturacion_invoice" 
+              name="Facturas"
+              parent="menu_facturacion_root"
+              action="action_facturacion_invoice"
+              sequence="1"/>
 </odoo>
-
