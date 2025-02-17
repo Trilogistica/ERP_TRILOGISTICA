@@ -1,0 +1,41 @@
+<odoo>
+    <record id="action_custom_invoice" model="ir.actions.act_window">
+        <field name="name">Facturas Personalizadas</field>
+    	<field name="res_model">custom.invoice</field>
+    	<field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="view_invoice_form" model="ir.ui.view">
+        <field name="name">custom.invoice.form</field>
+        <field name="model">custom.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Factura">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="date_invoice"/>
+                        <field name="amount_total"/>
+                        <field name="partner_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_invoice_tree" model="ir.ui.view">
+        <field name="name">custom.invoice.tree</field>
+        <field name="model">custom.invoice</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="date_invoice"/>
+                <field name="amount_total"/>
+                <field name="partner_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="menu_custom_invoice" name="Facturas Personalizadas" parent="account.menu_account" sequence="10"/>
+    <menuitem id="submenu_custom_invoice" name="Facturas" parent="menu_custom_invoice" action="action_custom_invoice"/>
+</odoo>
+
