@@ -1,0 +1,41 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="gastos_gasto_form">
+      <field name="name">Formulario de Gasto</field>
+      <field name="model">gastos.gasto</field>
+      <field name="arch" type="xml">
+        <form string="Gasto">
+          <header>
+            <button name="print_custom_report" type="object" class="oe_highlight" string="Imprimir"/>
+          </header>
+          <sheet>
+            <group>
+              <div class="oe_title">
+                <label for="supplier"/>
+                <h1>
+                  <field name="supplier" placeholder="Proveedor del Gasto"/>
+                </h1>
+              </div>
+            </group>
+            
+            <group>
+              <group>
+                <field name="expense_date" widget="date" string="Fecha de Gasto"/>
+                <field name="number" string="Número"/>
+              </group>
+              <group>
+                <field name="value" widget="monetary" options="{'currency_field': 'currency_id'}" required="1" string="Valor en Q"/>
+                <field name="no_retencion_isr" string="Número Retención ISR"/>
+                <field name="isr" string="Valor ISR"/>
+              </group>
+              <group>
+                <field name="constancia" string="Constancia"/>
+                <field name="status" string="Estado de Pago"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+  </data>
+</odoo>

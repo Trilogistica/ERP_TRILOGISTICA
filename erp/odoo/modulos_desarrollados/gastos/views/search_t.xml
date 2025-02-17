@@ -1,0 +1,13 @@
+<odoo>
+  <data>
+    <record id="view_gasto_search" model="ir.ui.view">
+      <field name="name">Search por Fecha</field>
+      <field name="model">gastos.gasto</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="expense_date" string="Fecha"/>
+        </search>
+      </field>
+    </record>
+  </data>
+</odoo>
