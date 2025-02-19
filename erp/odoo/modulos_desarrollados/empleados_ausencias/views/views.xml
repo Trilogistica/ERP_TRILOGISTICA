@@ -1,0 +1,66 @@
+<odoo>
+    <!-- Vista Formulario para empleados.ausencias -->
+    <record id="view_empleados_ausencias_form" model="ir.ui.view">
+        <field name="name">empleados.ausencias.form</field>
+        <field name="model">empleados.ausencias</field>
+        <field name="arch" type="xml">
+            <form string="Empleados y Ausencias">
+                <sheet>
+                    <group>
+                        <field name="nombre_completo"/>
+                        <field name="dpi"/>
+                        <field name="estacion_trabajo"/>
+                        <field name="fecha_nacimiento"/>
+                        <field name="puesto"/>
+                        <field name="estado_civil"/>
+                        <field name="sexo"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Árbol para empleados.ausencias -->
+    <record id="view_empleados_ausencias_tree" model="ir.ui.view">
+        <field name="name">empleados.ausencias.tree</field>
+        <field name="model">empleados.ausencias</field>
+        <field name="arch" type="xml">
+            <tree string="Empleados y Ausencias">
+                <field name="nombre_completo"/>
+                <field name="dpi"/>
+                <field name="puesto"/>
+                <field name="ausencias_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vistas para el modelo hijo empleados.ausencias.registro -->
+    <record id="view_empleados_ausencias_registro_tree" model="ir.ui.view">
+        <field name="name">empleados.ausencias.registro.tree</field>
+        <field name="model">empleados.ausencias.registro</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="tipo_ausencia"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_empleados_ausencias_registro_form" model="ir.ui.view">
+        <field name="name">empleados.ausencias.registro.form</field>
+        <field name="model">empleados.ausencias.registro</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="fecha_inicio"/>
+                        <field name="fecha_fin"/>
+                        <field name="tipo_ausencia"/>
+                        <field name="descripcion"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
