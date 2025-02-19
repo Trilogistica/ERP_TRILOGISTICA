@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class Empleado(models.Model):
     _name = 'empleados.ausencias'
@@ -22,6 +22,17 @@ class Empleado(models.Model):
     ], string='Sexo')
     ausencias_ids = fields.One2many('empleados.ausencias.registro', 'empleado_id', string='Ausencias')
 
+    ausencias_count = fields.Integer(
+        string='Cantidad de Ausencias',
+        compute='_compute_ausencias_count',
+        store=True  # Hace que el campo sea almacenado en la base de datos
+    )
+
+    @api.depends('ausencias_ids')
+    def _compute_ausencias_count(self):
+        for record in self:
+            record.ausencias_count = len(record.ausencias_ids)
+
 class Ausencia(models.Model):
     _name = 'empleados.ausencias.registro'
     _description = 'Registro de Ausencias de Empleados'
@@ -36,13 +47,4 @@ class Ausencia(models.Model):
         ('feriado_no_tomado', 'Feriado No Tomado')
     ], string='Tipo de Ausencia', required=True)
     descripcion = fields.Text(string='Descripción')
-
-class EmpleadoAusenciasVista(models.Model):
-    _inherit = 'empleados.ausencias'
-    
-    def get_ausencias(self):
-        for record in self:
-            record.ausencias_count = len(record.ausencias_ids)
-    
-    ausencias_count = fields.Integer(string='Cantidad de Ausencias', compute='get_ausencias')
 
