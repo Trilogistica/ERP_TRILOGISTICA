@@ -7,7 +7,7 @@
         <form string="Gasto">
           <header>
             <button name="print_custom_report" type="object" class="oe_highlight" string="Imprimir"/>
-            <button name="print_custom_report" type="object" class="oe_highlight" string="Ejecutar"/>
+            
           </header>
           <sheet>
             <group>

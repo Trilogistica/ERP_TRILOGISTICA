@@ -5,7 +5,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-
+import requests
 
 class Gasto(models.Model):
     _name = 'gastos.gasto'
@@ -18,6 +18,7 @@ class Gasto(models.Model):
     isr = fields.Float(string="VALOR ISR")
     constancia = fields.Char(string="CONSTANCIA")
     
+
     status = fields.Selection(
         selection=[
             ('pagado', 'Pagado'),
@@ -31,6 +32,22 @@ class Gasto(models.Model):
     def print_custom_report(self):
         return self.env.ref("template_factura.bill_template_action").report_action(self)
 
+
+    def download_excel(self):
+        url = "http://localhost:8069/descargar_excel"
+        try:
+            response = requests.get(url, timeout=10)
+            if response.status_code == 200:
+                return {
+                    'type': 'ir.actions.act_url',
+                    'url': url,
+                    'target': 'self',
+                }
+            else:
+                return {'warning': {'title': 'Error', 'message': 'No se pudo descargar el archivo'}}
+        except requests.exceptions.RequestException as e:
+            return {'warning': {'title': 'Error', 'message': f'Error de conexión: {str(e)}'}}
+        
     @api.model
     def create_gasto(self, expense_date, supplier, number, value, no_retencion_isr, isr, constancia, status='no_pagado'):
         # Crear un nuevo gasto
