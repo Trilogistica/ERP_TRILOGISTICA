@@ -1,41 +1,173 @@
 <odoo>
-    <!-- Vista Formulario para empleados.ausencias -->
+    <!-- Vista Lista para Empleados -->
+    <record id="view_empleados_ausencias_list" model="ir.ui.view">
+        <field name="name">empleados.ausencias.list</field>
+        <field name="model">empleados.ausencias</field>
+        <field name="arch" type="xml">
+            <list string="Empleados">
+                <field name="nombre_completo"/>
+                <field name="dpi"/>
+                <field name="estacion_trabajo"/>
+                <field name="puesto"/>
+                <field name="ausencias_count"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista Búsqueda para Empleados -->
+    <record id="view_empleados_ausencias_search" model="ir.ui.view">
+        <field name="name">empleados.ausencias.search</field>
+        <field name="model">empleados.ausencias</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Empleados">
+                <field name="nombre_completo"/>
+                <field name="dpi"/>
+                <field name="estacion_trabajo"/>
+                <field name="puesto"/>
+                <filter string="Masculino" name="masculino" domain="[('sexo', '=', 'masculino')]"/>
+                <filter string="Femenino" name="femenino" domain="[('sexo', '=', 'femenino')]"/>
+                <group expand="0" string="Agrupar Por">
+                    <filter string="Estación de Trabajo" name="estacion" context="{'group_by': 'estacion_trabajo'}"/>
+                    <filter string="Puesto" name="puesto" context="{'group_by': 'puesto'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Vista Formulario para Empleados -->
     <record id="view_empleados_ausencias_form" model="ir.ui.view">
         <field name="name">empleados.ausencias.form</field>
         <field name="model">empleados.ausencias</field>
         <field name="arch" type="xml">
             <form string="Empleados y Ausencias">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_ausencias" type="object" class="oe_stat_button" icon="fa-calendar">
+                            <field name="ausencias_count" widget="statinfo" string="Ausencias"/>
+                        </button>
+                    </div>
                     <group>
-                        <field name="nombre_completo"/>
-                        <field name="dpi"/>
-                        <field name="estacion_trabajo"/>
-                        <field name="fecha_nacimiento"/>
-                        <field name="puesto"/>
-                        <field name="estado_civil"/>
-                        <field name="sexo"/>
+                        <group>
+                            <field name="nombre_completo"/>
+                            <field name="dpi"/>
+                            <field name="estacion_trabajo"/>
+                            <field name="fecha_nacimiento"/>
+                        </group>
+                        <group>
+                            <field name="puesto"/>
+                            <field name="estado_civil"/>
+                            <field name="sexo"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Ausencias">
+                            <field name="ausencias_ids">
+                                <list>
+                                    <field name="fecha_inicio"/>
+                                    <field name="fecha_fin"/>
+                                    <field name="tipo_ausencia"/>
+                                    <field name="descripcion"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <!-- Vista Formulario para empleados.ausencias.registro -->
+    <!-- Vista Lista para Registro de Ausencias -->
+    <record id="view_empleados_ausencias_registro_list" model="ir.ui.view">
+        <field name="name">empleados.ausencias.registro.list</field>
+        <field name="model">empleados.ausencias.registro</field>
+        <field name="arch" type="xml">
+            <list string="Ausencias">
+                <field name="empleado_id"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="tipo_ausencia"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista Formulario para Registro de Ausencias -->
     <record id="view_empleados_ausencias_registro_form" model="ir.ui.view">
         <field name="name">empleados.ausencias.registro.form</field>
         <field name="model">empleados.ausencias.registro</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Registro de Ausencias">
                 <sheet>
                     <group>
-                        <field name="fecha_inicio"/>
-                        <field name="fecha_fin"/>
-                        <field name="tipo_ausencia"/>
-                        <field name="descripcion"/>
+                        <group>
+                            <field name="empleado_id"/>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_fin"/>
+                        </group>
+                        <group>
+                            <field name="tipo_ausencia"/>
+                            <field name="descripcion"/>
+                        </group>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
-</odoo>
 
+    <!-- Vista Calendario para Registro de Ausencias -->
+    <record id="view_empleados_ausencias_registro_calendar" model="ir.ui.view">
+        <field name="name">empleados.ausencias.registro.calendar</field>
+        <field name="model">empleados.ausencias.registro</field>
+        <field name="arch" type="xml">
+            <calendar string="Calendario de Ausencias" 
+                     date_start="fecha_inicio" 
+                     date_stop="fecha_fin" 
+                     color="tipo_ausencia">
+                <field name="empleado_id"/>
+                <field name="tipo_ausencia"/>
+                <field name="descripcion"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Acción para acceder a Empleados -->
+    <record id="action_empleados_ausencias" model="ir.actions.act_window">
+        <field name="name">Empleados y Ausencias</field>
+        <field name="res_model">empleados.ausencias</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_empleados_ausencias_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear nuevo empleado
+            </p>
+        </field>
+    </record>
+
+    <!-- Acción para acceder al Calendario de Ausencias -->
+    <record id="action_empleados_ausencias_registro" model="ir.actions.act_window">
+        <field name="name">Calendario de Ausencias</field>
+        <field name="res_model">empleados.ausencias.registro</field>
+        <field name="view_mode">calendar,list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Registrar nueva ausencia
+            </p>
+        </field>
+    </record>
+
+    <!-- Menús -->
+    <menuitem id="menu_empleados_ausencias_root" 
+              name="Gestión de Ausencias" 
+              sequence="10"/>
+
+    <menuitem id="menu_empleados" 
+              name="Empleados" 
+              parent="menu_empleados_ausencias_root" 
+              action="action_empleados_ausencias" 
+              sequence="10"/>
+
+    <menuitem id="menu_ausencias" 
+              name="Calendario de Ausencias" 
+              parent="menu_empleados_ausencias_root" 
+              action="action_empleados_ausencias_registro" 
+              sequence="20"/>
+</odoo>
