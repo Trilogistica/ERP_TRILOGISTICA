@@ -6,8 +6,7 @@
     'depends': ['base'],
     'data': [
         'views/views.xml',
-        'security/ir.model.access.csv',
-        'models/models.py'
+        'security/ir.model.access.csv'
     ],
     'installable': True,
     'application': True,
