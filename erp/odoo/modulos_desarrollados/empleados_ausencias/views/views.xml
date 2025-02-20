@@ -1,4 +1,56 @@
 <odoo>
+    <record id="view_empleados_ausencias_evaluacion_graph" model="ir.ui.view">
+        <field name="name">empleados.ausencias.evaluacion.graph</field>
+        <field name="model">empleados.ausencias.evaluacion</field>
+        <field name="arch" type="xml">
+            <graph string="Evaluaciones de Empleados" type="bar">
+                <field name="empleado_nombre" type="row"/>
+                <field name="pedidos_realidados" type="measure"/>
+                <field name="pedidos_recibidos" type="measure"/>
+                <field name="ducas_digitadas" type="measure"/>
+                <field name="cobros_realizados" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+     <record id="view_empleados_ausencias_evaluacion_list" model="ir.ui.view">
+        <field name="name">empleados.ausencias.evaluacion.list</field>
+        <field name="model">empleados.ausencias.evaluacion</field>
+        <field name="arch" type="xml">
+            <list string="Evaluaciones de Empleados">
+                <field name="empleado_nombre"/>
+                <field name="pedidos_realidados"/>
+                <field name="pedidos_recibidos"/>
+                <field name="ducas_digitadas"/>
+                <field name="cobros_realizados"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de Formulario para Evaluaciones -->
+    <record id="view_empleados_ausencias_evaluacion_form" model="ir.ui.view">
+        <field name="name">empleados.ausencias.evaluacion.form</field>
+        <field name="model">empleados.ausencias.evaluacion</field>
+        <field name="arch" type="xml">
+            <form string="Evaluación de Empleados">
+                <sheet>
+                    <group string="Información del Empleado">
+                        <field name="empleado_id"/>
+                        <field name="empleado_nombre" readonly="1"/>
+                    </group>
+                    <group string="Datos de Evaluación">
+                        <field name="pedidos_realidados"/>
+                        <field name="pedidos_recibidos"/>
+                        <field name="ducas_digitadas"/>
+                        <field name="cobros_realizados"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    
+
     <!-- Vista Lista para Empleados -->
     <record id="view_empleados_ausencias_list" model="ir.ui.view">
         <field name="name">empleados.ausencias.list</field>
@@ -67,6 +119,16 @@
                                     <field name="fecha_fin"/>
                                     <field name="tipo_ausencia"/>
                                     <field name="descripcion"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Evaluaciones">
+                            <field name="evaluaciones_ids">
+                                <list>
+                                    <field name="pedidos_realidados"/>
+                                    <field name="pedidos_recibidos"/>
+                                    <field name="ducas_digitadas"/>
+                                    <field name="cobros_realizados"/>
                                 </list>
                             </field>
                         </page>
@@ -142,17 +204,7 @@
         </field>
     </record>
 
-    <record id="action_empleados_evaluaciones" model="ir.actions.act_window">
-        <field name="name">Evaluaciones</field>
-        <field name="res_model">empleados.ausencias</field>
-        <field name="view_mode">list,form</field>
-        <field name="search_view_id" ref="view_empleados_ausencias_search"/>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Crear nuevo empleado
-            </p>
-        </field>
-    </record>
+    
 
     <!-- Acción para acceder al Calendario de Ausencias -->
     <record id="action_empleados_ausencias_registro" model="ir.actions.act_window">
@@ -166,11 +218,24 @@
         </field>
     </record>
 
+
+    <!-- Acción para acceder a Evaluaciones -->
+    <record id="action_empleados_ausencias_evaluacion" model="ir.actions.act_window">
+        <field name="name">Evaluaciones</field>
+        <field name="res_model">empleados.ausencias.evaluacion</field>
+        <field name="view_mode">list,graph,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crear nueva evaluación
+            </p>
+        </field>
+    </record>
+
     <!-- Menús -->
 
     
     <menuitem id="menu_empleados_ausencias_root" 
-              name="Gestión de Ausencias" 
+              name="Empleados" 
               sequence="10"/>
 
 
@@ -185,7 +250,7 @@
     <menuitem id="menu_evaluaciones" 
               name="Evaluaciones" 
               parent="menu_empleados_ausencias_root" 
-              action="action_empleados_evaluaciones" 
+              action="action_empleados_ausencias_evaluacion" 
               sequence="10"/>
 
     <menuitem id="menu_ausencias" 
