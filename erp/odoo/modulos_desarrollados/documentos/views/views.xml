@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+    <!-- Vista de Lista -->
+    <record id="view_documentos_tree" model="ir.ui.view">
+        <field name="name">documentos.documentos.tree</field>
+        <field name="model">documentos.documentos</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="file_name"/>
+                <field name="file" widget="binary"/>
+                <field name="modified_file" widget="binary"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Vista de Formulario -->
+    <record id="view_documentos_form" model="ir.ui.view">
+        <field name="name">documentos.documentos.form</field>
+        <field name="model">documentos.documentos</field>
+        <field name="arch" type="xml">
+            <form string="Gestión de Documentos">
+                <sheet>
+                    <group>
+                        <field name="file" filename="file_name"/>
+                        <button name="add_text_to_pdf" string="Agregar Texto al PDF" type="object" class="oe_highlight"/>
+                        <field name="modified_file" filename="file_name" widget="binary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Kanban -->
+    
+
+    <!-- Acción para el Menú -->
+    <record id="action_documentos" model="ir.actions.act_window">
+        <field name="name">Documentos</field>
+        <field name="res_model">documentos.documentos</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+
+    <!-- Menú -->
+    <menuitem id="menu_documentos_root" name="Documentos" sequence="10"/>
+    <menuitem id="menu_documentos" name="Gestión de Documentos" parent="menu_documentos_root" action="action_documentos" sequence="10"/>
+
+
+  </data>
+</odoo>
