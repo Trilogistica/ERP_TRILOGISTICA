@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_inventario,inventario.inventario,model_inventario_inventario,base.group_user,1,1,1,1
+access_servicio,inventario.servicio,model_inventario_servicio,base.group_user,1,1,1,1
+
