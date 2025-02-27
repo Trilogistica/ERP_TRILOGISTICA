@@ -1,0 +1,51 @@
+<odoo>
+  <data>
+
+     <record id="gastos_graph" model="ir.ui.view">
+        <field name="model">gastos.gasto</field>
+        <field name="arch" type="xml">
+          <graph string="Gastos" type="bar">
+             <field name="expense_date" string="Fecha" type="date"/>
+            <field name="value" string="Valor" sum="1"/>
+          </graph>
+        </field>
+     </record>
+
+     <record id="view_gasto_search" model="ir.ui.view">
+    <field name="name">Search por Fecha</field>
+    <field name="model">gastos.gasto</field>
+    <field name="arch" type="xml">
+        <search>
+            <group expand="0" string="Group By">
+                <filter string="Fecha" name="group_by_expense_date" domain="[]" 
+                        context="{'group_by': 'expense_date'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+
+     
+
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="gastos.action_gasto_window">
+      <field name="name">Mis Gastos</field>
+      <field name="res_model">gastos.gasto</field>
+      <field name="view_mode">list,kanban,graph,form</field>
+      <field name="search_view_id" ref="view_gasto_search"/>
+      <!-- <field name="search_view_id" ref="gastos.gasto_search"/> -->
+
+    </record>
+
+    <!-- Top menu item -->
+    <menuitem name="Mis Gastos" id="gastos.menu_root"/>
+
+    <!-- menu categories -->
+    <menuitem name="Gastos" id="gastos.menu_1" parent="gastos.menu_root"/>
+
+    <!-- actions -->
+    <menuitem name="Gasto" id="gastos.1_gasto_list" parent="gastos.menu_1"
+              action="gastos.action_gasto_window"/>
+  </data>
+</odoo>
