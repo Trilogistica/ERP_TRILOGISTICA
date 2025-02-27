@@ -1,0 +1,49 @@
+<odoo>
+  <data>
+
+
+    <record id="view_contabilidad_form" model="ir.ui.view">
+        <field name="name">contabilidad.form</field>
+        <field name="model">contabilidad.contabilidad</field>
+        <field name="arch" type="xml">
+            <form string="Contabilidad">
+             <header>
+                        
+                        <button name="download_report" type="object" string="Descargar Reporte" class="btn-success"/>
+             </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="fecha"/>
+                        
+                    </group>
+
+                    
+                   
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_contabilidad_tree" model="ir.ui.view">
+        <field name="name">contabilidad.list</field>
+        <field name="model">contabilidad.contabilidad</field>
+        <field name="arch" type="xml">
+            <list string="Contabilidad">
+                <field name="name"/>
+                <field name="fecha" widget="date" options="{'mode': 'month'}"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_contabilidad" model="ir.actions.act_window">
+        <field name="name">Contabilidad</field>
+        <field name="res_model">contabilidad.contabilidad</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_contabilidad_root" name="Contabilidad" sequence="10"/>
+    <menuitem id="menu_contabilidad" name="Gestión de Contabilidad" parent="menu_contabilidad_root" action="action_contabilidad" sequence="10"/>
+
+  </data>
+</odoo>

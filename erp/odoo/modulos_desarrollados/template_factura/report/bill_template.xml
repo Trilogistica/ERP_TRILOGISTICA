@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="bill_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>Factura Generada</h1>
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>FECHA</th>
+                                    <th>PROVEEDOR</th>
+                                    <th>NUMERO</th>
+                                    <th>VALOR Q</th>
+                                    <th>NUMERO RETENCION ISR</th>
+                                    <th>VALOR ISR</th>
+                                    <th>CONSTANCIA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td t-esc="doc.expense_date"/>
+                                    <td t-esc="doc.supplier"/>
+                                    <td t-esc="doc.number"/>
+                                    <td t-esc="doc.value"/>
+                                    <td t-esc="doc.no_retencion_isr"/>
+                                    <td t-esc="doc.isr"/>
+                                    <td t-esc="doc.constancia"/>
+                                </tr>
+                            </tbody>
+                            <!-- Cálculo de Totales -->
+                            <t t-set="total_value" t-value="sum(docs.mapped('value'))"/>
+                            <t t-set="total_isr" t-value="sum(docs.mapped('isr'))"/>
+
+                            <tfoot>
+                                <tr>
+                                    <td colspan="3"><strong>Total</strong></td>
+                                    <td t-esc="total_value"/>
+                                    <td></td>
+                                    <td t-esc="total_isr"/>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="bill_template_action" model="ir.actions.report">
+        <field name="name">Factura Generada</field>
+        <field name="model">gastos.gasto</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">template_factura.bill_template</field>
+        <field name="report_file">template_factura.bill_template</field>
+        <field name="print_report_name">'Factura-Generada'</field>
+        <field name="binding_model_id" ref="gastos.model_gastos_gasto"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>
